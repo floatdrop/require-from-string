@@ -1,6 +1,7 @@
 'use strict';
 
 var Module = module.constructor;
+var path = require('path');
 
 module.exports = function requireFromString(code, filename) {
 	if (typeof code !== 'string') {
@@ -8,7 +9,8 @@ module.exports = function requireFromString(code, filename) {
 	}
 
 	var m = new Module(filename, module);
-	m.paths = module.paths;
+	m.filename = filename;
+	m.paths = Module._nodeModulePaths(path.dirname(filename));
 	m._compile(code, filename);
 	return m.exports;
 };
