@@ -8,7 +8,7 @@ module.exports = function requireFromString(code, filename) {
 		throw new Error('code must be a string, not ' + typeof code);
 	}
 
-	var m = new Module(filename, module);
+	var m = new Module(filename, module.parent);
 	m.filename = filename;
 	m.paths = Module._nodeModulePaths(path.dirname(filename));
 	m._compile(code, filename);

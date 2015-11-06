@@ -28,5 +28,6 @@ it('should work with relative require in file', function () {
 	var code = fs.readFileSync(file, 'utf8');
 	var result = requireFromString(code, file);
 
-	assert.equal(result, 'ok');
+	assert.ok(result);
+	assert.ok(module === result.parent.parent);
 });
