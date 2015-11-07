@@ -21,7 +21,7 @@ requireFromString('module.exports = 1');
 
 ## API
 
-### requireFromString(code, [filename])
+### requireFromString(code, [filename], [options])
 
 #### code
 
@@ -35,6 +35,20 @@ Type: `string`
 
 Optional filename.
 
+
+#### options
+Type: `object`
+
+##### appendPaths
+Type: `Array`
+
+List of `paths`, that will be appended to module `paths`. Useful, when you want
+to be able require modules from these paths.
+
+##### prependPaths
+Type: `Array`
+
+Same as `appendPath`, but paths will be prepended.
 
 ## License
 

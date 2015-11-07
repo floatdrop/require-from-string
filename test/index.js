@@ -31,3 +31,16 @@ it('should work with relative require in file', function () {
 	assert.ok(result);
 	assert.ok(module === result.parent.parent);
 });
+
+it('should have appended and preppended paths', function () {
+	var file = path.join(__dirname, '/fixture/submodule.js');
+	var code = fs.readFileSync(file, 'utf8');
+	var result = requireFromString(code, file, {
+		appendPaths: ['append'],
+		prependPaths: ['prepend']
+	});
+
+	assert.ok(result);
+	assert.equal(result.paths.indexOf('append'), result.paths.length - 1);
+	assert.equal(result.paths.indexOf('prepend'), 0);
+});
