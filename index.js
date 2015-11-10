@@ -2,11 +2,17 @@
 
 var Module = module.constructor;
 var path = require('path');
+var assert = require('assert');
 
 module.exports = requireFromString;
 module.exports.load = load;
 
 function requireFromString(code, filename, opts) {
+	if (typeof filename === 'object') {
+		opts = filename;
+		filename = undefined;
+	}
+
 	if (typeof code !== 'string') {
 		throw new Error('code must be a string, not ' + typeof code);
 	}
@@ -32,9 +38,14 @@ function load(filename, opts) {
 	var paths = Module._nodeModulePaths(path.dirname(filename));
 
 	var m = new Module(filename, module.parent);
-	if (opts.require) {
+
+	var requireHook = opts.require;
+
+	if (requireHook) {
 		m.require = function (path) {
-			return opts.require.call(this, path);
+			assert(typeof path === 'string', 'path must be a string');
+			assert(path, 'missing path');
+			return requireHook.call(this, path);
 		}
 	}
 	m.filename = filename;
