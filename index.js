@@ -7,14 +7,18 @@ module.exports = requireFromString;
 module.exports.load = load;
 
 function requireFromString(code, filename, opts) {
-	var m = load(code, filename, opts);
+	if (typeof code !== 'string') {
+		throw new Error('code must be a string, not ' + typeof code);
+	}
+
+	var m = load(filename, opts);
 
 	m._compile(code, filename);
 
 	return m.exports;
 }
 
-function load(code, filename, opts) {
+function load(filename, opts) {
 	if (typeof filename === 'object') {
 		opts = filename;
 		filename = undefined;
@@ -24,10 +28,6 @@ function load(code, filename, opts) {
 
 	opts.appendPaths = opts.appendPaths || [];
 	opts.prependPaths = opts.prependPaths || [];
-
-	if (typeof code !== 'string') {
-		throw new Error('code must be a string, not ' + typeof code);
-	}
 
 	var paths = Module._nodeModulePaths(path.dirname(filename));
 
