@@ -21,6 +21,11 @@ module.exports = function requireFromString(code, filename, opts) {
 	var paths = Module._nodeModulePaths(path.dirname(filename));
 
 	var m = new Module(filename, module.parent);
+	if (opts.require) {
+		m.require = function (path) {
+			return opts.require.call(this, path);
+		}
+	}
 	m.filename = filename;
 	m.paths = [].concat(opts.prependPaths).concat(paths).concat(opts.appendPaths);
 	m._compile(code, filename);
