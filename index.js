@@ -3,7 +3,18 @@
 var Module = module.constructor;
 var path = require('path');
 
-module.exports = function requireFromString(code, filename, opts) {
+module.exports = requireFromString;
+module.exports.load = load;
+
+function requireFromString(code, filename, opts) {
+	var m = load(code, filename, opts);
+
+	m._compile(code, filename);
+
+	return m.exports;
+}
+
+function load(code, filename, opts) {
 	if (typeof filename === 'object') {
 		opts = filename;
 		filename = undefined;
@@ -28,7 +39,5 @@ module.exports = function requireFromString(code, filename, opts) {
 	}
 	m.filename = filename;
 	m.paths = [].concat(opts.prependPaths).concat(paths).concat(opts.appendPaths);
-	m._compile(code, filename);
-
-	return m.exports;
-};
+	return m;
+}
