@@ -10,6 +10,7 @@ module.exports = function requireFromString(code, filename, opts) {
 	}
 
 	opts = opts || {};
+	filename = filename || '';
 
 	opts.appendPaths = opts.appendPaths || [];
 	opts.prependPaths = opts.prependPaths || [];
