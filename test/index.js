@@ -44,3 +44,17 @@ it('should have appended and preppended paths', function () {
 	assert.equal(result.paths.indexOf('append'), result.paths.length - 1);
 	assert.equal(result.paths.indexOf('prepend'), 0);
 });
+
+it('should have meaningful error message', function () {
+	try {
+		requireFromString('throw new Error("Boom!");');
+	} catch (err) {
+		assert.ok(/\(<anonymous>:1:69\)/.test(err.stack), 'should contain (<anonymous>:1:69) in stack');
+	}
+
+	try {
+		requireFromString('throw new Error("Boom!");', '');
+	} catch (err) {
+		assert.ok(/\(<anonymous>:1:69\)/.test(err.stack), 'should contain (<anonymous>:1:69) in stack');
+	}
+});

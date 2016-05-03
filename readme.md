@@ -31,7 +31,8 @@ Type: `string`
 Module code.
 
 #### filename
-Type: `string`
+Type: `string`  
+Default: `''`
 
 Optional filename.
 
