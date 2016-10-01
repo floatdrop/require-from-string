@@ -1,6 +1,6 @@
 'use strict';
 
-var Module = module.constructor;
+var Module = require('module');
 var path = require('path');
 
 module.exports = function requireFromString(code, filename, opts) {
