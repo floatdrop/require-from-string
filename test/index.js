@@ -58,3 +58,11 @@ it('should have meaningful error message', function () {
 		assert.ok(/\(<anonymous>:1:69\)/.test(err.stack), 'should contain (<anonymous>:1:69) in stack');
 	}
 });
+
+it('should cleanup parent.children', function() {
+	var file = path.join(__dirname, '/fixture/submodule.js');
+	var code = fs.readFileSync(file, 'utf8');
+	var result = requireFromString(code, file);
+
+	assert.ok(module.children.indexOf(result) === -1);
+});
