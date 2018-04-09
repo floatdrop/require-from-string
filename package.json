@@ -1,6 +1,6 @@
 {
   "name": "require-from-string",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Require module from string",
   "license": "MIT",
   "repository": "floatdrop/require-from-string",
